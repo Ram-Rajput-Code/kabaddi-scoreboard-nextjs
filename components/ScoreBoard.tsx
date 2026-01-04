@@ -1,5 +1,8 @@
 "use client";
+import { CirclePlay, Minus, Plus } from "lucide-react";
 import { useState } from "react";
+import Timer from "./Timer";
+import ThirtySecondTimer from "./ThirtySecondTimer";
 
 export default function ScoreBoard({ editable }: { editable: boolean }) {
   const [teamA, setTeamA] = useState(0);
@@ -13,26 +16,48 @@ export default function ScoreBoard({ editable }: { editable: boolean }) {
   }
 
   return (
-    <div className="mt-6 flex justify-center">
+    <div className="mt-2 flex justify-center">
         <div className="">
-      <h1 className="text-2xl mb-2 text-center">First Half</h1>
-
-      <div className="flex gap-24 text-9xl">
+          <div className="">
+            <Timer/>
+      </div>
+      <div className="flex gap-4 text-9xl items-center border-b border-b-gray-400 mb-2">
         <div>
-          Team A: {teamA}
-          <span className="flex items-center justify-center gap-4 text-center">
-          {editable && <button onClick={() => setTeamA(teamA + 1)}>+</button>}
-          {editable && <button onClick={() => setTeamA(teamA - 1)}>-</button>}
+          <input
+          placeholder="Team-A"
+          className="max-w-170 text-center"
+          />
+          <span className="flex  items-center justify-center gap-4 text-center text-[200px] font-bold">
+           {teamA}
+          <span className="flex flex-col">
+
+          {editable && <Plus size={68} className="hover:bg-gray-700 p-1 rounded-full cursor-pointer" onClick={() => setTeamA(teamA + 1)}/>}
+          {editable && <Minus size={68} className="hover:bg-gray-700 p-1 rounded-full cursor-pointer" onClick={() => setTeamA(teamA - 1)}/>}
+          </span>
           </span>
         </div>
-
+<span className="text-4xl">
+ v/s
+  
+  </span>
         <div>
-          Team B: {teamB}
-          <span className="flex items-center justify-center gap-4 text-center">
-          {editable && <button onClick={() => setTeamB(teamB + 1)}>+</button>}
-          {editable && <button onClick={() => setTeamB(teamB - 1)}>-</button>}
+        <input
+          placeholder="Team-B"
+          className="max-w-170 text-center"
+          />
+         <span className="flex  items-center justify-center gap-4 text-center text-[200px] font-bold">
+           {teamB}
+          <span className="flex flex-col">
+
+          {editable && <Plus size={68} className="hover:bg-gray-700 p-1 rounded-full cursor-pointer" onClick={() => setTeamB(teamB + 1)}/>}
+          {editable && <Minus size={68} className="hover:bg-gray-700 p-1 rounded-full cursor-pointer" onClick={() => setTeamB(teamB - 1)}/>}
+          </span>
           </span>
         </div>
+      </div>
+      <div className="text-6xl">
+
+      <ThirtySecondTimer/>
       </div>
 
       {editable && <button onClick={saveScore}>Save</button>}
