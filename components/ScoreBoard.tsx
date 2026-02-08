@@ -56,8 +56,9 @@ export default function ScoreBoard({ editable }: { editable: boolean }) {
         </div>
       </div>
       <div className="text-6xl">
-
+{editable &&(
       <ThirtySecondTimer/>
+    )}
       </div>
 
       {editable && <button onClick={saveScore}>Save</button>}

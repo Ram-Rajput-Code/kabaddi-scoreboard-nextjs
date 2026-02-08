@@ -12,7 +12,7 @@ export default function Timer() {
   const [isRunning, setIsRunning] = useState(false);
   const [gamePeriod, setGamePeriod] = useState("1st Half");
 
-  const beepRef = useRef(null);
+  const beepRef = useRef<HTMLAudioElement | null>(null);
 
   // 1. Setup Audio
   useEffect(() => {
@@ -63,10 +63,14 @@ export default function Timer() {
   // Handlers
   const startTimer = () => {
     setIsRunning(true);
-    // Unlock audio for browser
-    if (beepRef.current) {
-      beepRef.current.play().then(() => {
-        beepRef.current.pause();
+    
+    // 1. Capture the current ref in a local variable
+    const audio = beepRef.current;
+
+    // 2. Use the local variable instead of the ref
+    if (audio) {
+      audio.play().then(() => {
+        audio.pause(); // TypeScript now knows 'audio' cannot be null here
       }).catch(() => {});
     }
   };
@@ -92,7 +96,8 @@ export default function Timer() {
     }
   };
 
-  const formatTime = (seconds) => {
+ 
+  const formatTime = (seconds: number) => {
     const min = String(Math.floor(seconds / 60)).padStart(2, "0");
     const sec = String(seconds % 60).padStart(2, "0");
     return `${min}:${sec}`;
